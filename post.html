@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>文章详情 - 我的博客</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* 可选：内联一些基本样式，也可移到 style.css */
+    #post-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .post-content h1, .post-content h2, .post-content h3 {
+      color: #333;
+      line-height: 1.4;
+    }
+    .post-content p {
+      line-height: 1.8;
+      color: #444;
+    }
+    .category-tag {
+      display: inline-block;
+      background: #4a6fa5;
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+    }
+    .toc-container {
+      flex: 0 0 200px;
+      padding-right: 2rem;
+      border-right: 1px solid #eee;
+      margin-right: 2rem;
+    }
+    .toc-container ul {
+      list-style: none;
+      padding: 0;
+      font-size: 0.95rem;
+    }
+    .toc-container a {
+      color: #4a6fa5;
+      text-decoration: none;
+    }
+    .toc-container a:hover {
+      text-decoration: underline;
+    }
+    .pagination {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .pagination a, .pagination span {
+      color: #4a6fa5;
+      text-decoration: underline;
+    }
+    .pagination span {
+      color: #aaa;
+      text-decoration: none;
+    }
+    @media (max-width: 768px) {
+      .post-layout {
+        flex-direction: column;
+      }
+      .toc-container {
+        flex: none;
+        padding-right: 0;
+        border-right: none;
+        margin-right: 0;
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>✨ 我的博客</h1>
+    <nav>
+      <a href="index.html">首页</a>
+      <a href="#">关于</a>
+      <a href="#">联系</a>
+    </nav>
+  </header>
+
+  <main id="post-container">
+    <p>正在加载文章...</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 我的博客. 由 JavaScript 驱动.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const container = document.getElementById('post-container');
+
+      // 从 URL 获取文章 ID
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = parseInt(urlParams.get('id'));
+
+      if (isNaN(postId)) {
+        container.innerHTML = '<p>无效的文章 ID。</p>';
+        return;
+      }
+
+      fetch('posts.json')
+        .then(res => {
+          if (!res.ok) throw new Error('文章数据加载失败');
+          return res.json();
+        })
+        .then(posts => {
+          const post = posts[postId];
+          if (!post) {
+            container.innerHTML = '<p>文章不存在。</p>';
+            return;
+          }
+
+          // 解析内容，提取 h2 标题用于生成目录
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = post.content;
+
+          const headings = Array.from(tempDiv.querySelectorAll('h2'));
+          let tocHTML = '';
+
+          if (headings.length > 0) {
+            tocHTML = `
+              <div class="toc-container">
+                <p style="font-weight: bold; margin-bottom: 1rem; color: #333;">📌 目录</p>
+                <ul>
+            `;
+
+            headings.forEach((heading, index) => {
+              // 为标题添加唯一 ID（用于锚点）
+              const anchorId = `section-${postId}-${index}`;
+              heading.id = anchorId;
+
+              tocHTML += `
+                <li style="margin: 0.4rem 0;">
+                  <a href="#${anchorId}" 
+                     onclick="event.preventDefault(); document.getElementById('${anchorId}').scrollIntoView({ behavior: 'smooth' });">
+                    ${heading.textContent}
+                  </a>
+                </li>
+              `;
+            });
+
+            tocHTML += `</ul></div>`;
+          }
+
+          // 重新设置 content（现在包含 ID 的标题）
+          const updatedContent = tempDiv.innerHTML;
+
+          // 获取上一篇/下一篇
+          const prevPost = posts[postId - 1];
+          const nextPost = posts[postId + 1];
+
+          const prevLink = prevPost 
+            ? `<a href="post.html?id=${postId - 1}">← 上一篇：${prevPost.title}</a>`
+            : `<span>← 没有上一篇</span>`;
+
+          const nextLink = nextPost 
+            ? `<a href="post.html?id=${postId + 1}">下一篇：${nextPost.title} →</a>`
+            : `<span>没有下一篇 →</span>`;
+
+          // 渲染完整页面
+          container.innerHTML = `
+            <article class="post-layout" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+              <!-- 目录 -->
+              ${tocHTML}
+
+              <!-- 文章内容 -->
+              <div style="flex: 1; min-width: 300px;" class="post-content">
+                <h1>${post.title}</h1>
+                <p class="date">${post.date}</p>
+                <div class="content">
+                  ${updatedContent}
+                </div>
+                ${post.category ? 
+                  `<span class="category-tag">${post.category}</span>` : ''}
+              </div>
+            </article>
+
+            <!-- 上下篇导航 -->
+            <div class="pagination">
+              <div style="text-align: left;">${prevLink}</div>
+              <div style="text-align: right;">${nextLink}</div>
+            </div>
+
+            <!-- 返回首页 -->
+            <p style="text-align:center; margin-top: 2rem;">
+              <a href="index.html">🏠 返回博客首页</a>
+            </p>
+          `;
+        })
+        .catch(err => {
+          container.innerHTML = `<p style="color:red;">加载失败: ${err.message}</p>`;
+        });
+    });
+  </script>
+</body>
+</html>

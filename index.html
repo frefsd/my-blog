@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>我的博客 - 首页</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>✨ 我的博客</h1>
+    <nav>
+      <a href="index.html">首页</a>
+      <a href="about.html">关于</a>
+      <a href="#">联系</a>
+    </nav>
+  </header>
+
+  <main id="home-container">
+    <p>正在加载文章...</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 我的博客. 由 JavaScript 驱动.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const container = document.getElementById('home-container');
+
+      fetch('posts.json')
+        .then(res => res.json())
+        .then(posts => {
+          if (!posts || posts.length === 0) {
+            container.innerHTML = '<p>暂无文章。</p>';
+            return;
+          }
+
+          // 渲染文章列表
+          const postList = posts.map((post, index) => `
+            <article class="post-item" style="margin-bottom: 2rem; padding: 1rem; border: 1px solid #eee; border-radius: 8px;">
+              <h2><a href="post.html?id=${index}" style="color: #4a6fa5; text-decoration: none;">${post.title}</a></h2>
+              <p class="date">${post.date}</p>
+              <p class="excerpt">${post.excerpt || '暂无摘要'}</p>
+              ${post.category ? 
+                `<span class="category-tag" style="display:inline-block; background:#4a6fa5; color:white; padding:0.2rem 0.6rem; border-radius:12px; font-size:0.8rem; margin-top:0.5rem;">${post.category}</span>` : ''}
+            </article>
+          `).join('');
+
+          container.innerHTML = `
+            <div style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
+              <h2>最新文章</h2>
+              ${postList}
+            </div>
+          `;
+        })
+        .catch(err => {
+          container.innerHTML = `<p style="color:red;">加载失败: ${err.message}</p>`;
+        });
+    });
+  </script>
+</body>
+</html>
