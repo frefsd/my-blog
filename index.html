@@ -5,28 +5,139 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>我的博客 - 首页</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* 主体样式 */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* 搜索框样式 */
+    .search-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+      width: 100%;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.8rem 1.2rem;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      font-size: 1rem;
+      outline: none;
+      transition: box-shadow 0.3s;
+    }
+
+    .search-box input:focus {
+      box-shadow: 0 0 0 2px #4a6fa5;
+      border-color: #4a6fa5;
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 1rem;
+      fill: #999;
+      width: 16px;
+      height: 16px;
+    }
+
+    /* 下拉框样式 */
+    .filter-select {
+      display: block;
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    /* 文章列表 */
+    .post-item {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .post-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+    .post-item h2 {
+      margin: 0 0 0.5rem 0;
+      color: #4a6fa5;
+      font-size: 1.4rem;
+    }
+
+    .post-item .date {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .post-item .excerpt {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .post-item .category-tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      background: #4a6fa5;
+      color: white;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>✨ 我的博客</h1>
-    <nav>
-      <a href="index.html">首页</a>
-      <a href="about.html">关于</a>
-      <a href="#">联系</a>
+  <header style="text-align: center; padding: 1.5rem 0;">
+    <h1 style="font-size: 2.2rem; color: #4a6fa5; display: flex; align-items: center; gap: 0.5rem;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+      我的博客
+    </h1>
+    <nav style="margin-top: 1rem;">
+      <a href="index.html" style="margin: 0 1rem; color: #666; text-decoration: none;">首页</a>
+      <a href="about.html" style="margin: 0 1rem; color: #666; text-decoration: none;">关于</a>
+      <a href="#" style="margin: 0 1rem; color: #666; text-decoration: none;">联系</a>
     </nav>
   </header>
 
-  <main id="home-container">
+  <main id="home-container" class="container">
     <p>正在加载文章...</p>
   </main>
 
-  <footer>
-    <p>&copy; 2025 我的博客. 由 JavaScript 驱动.</p>
+  <footer style="text-align: center; padding: 1.5rem 0; color: #666; font-size: 0.9rem;">
+    &copy; 2025 我的博客. 由 JavaScript 驱动.
   </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const container = document.getElementById('home-container');
+      let currentCategory = ''; // 当前选中的分类
+      let searchKeyword = '';   // 当前搜索词
 
       fetch('posts.json')
         .then(res => res.json())
@@ -36,23 +147,89 @@
             return;
           }
 
-          // 渲染文章列表
-          const postList = posts.map((post, index) => `
-            <article class="post-item" style="margin-bottom: 2rem; padding: 1rem; border: 1px solid #eee; border-radius: 8px;">
-              <h2><a href="post.html?id=${index}" style="color: #4a6fa5; text-decoration: none;">${post.title}</a></h2>
-              <p class="date">${post.date}</p>
-              <p class="excerpt">${post.excerpt || '暂无摘要'}</p>
-              ${post.category ? 
-                `<span class="category-tag" style="display:inline-block; background:#4a6fa5; color:white; padding:0.2rem 0.6rem; border-radius:12px; font-size:0.8rem; margin-top:0.5rem;">${post.category}</span>` : ''}
-            </article>
-          `).join('');
+          // 提取所有唯一分类
+          const categories = ['全部'];
+          const categorySet = new Set(posts.map(p => p.category));
+          categories.push(...Array.from(categorySet).sort());
 
-          container.innerHTML = `
-            <div style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
-              <h2>最新文章</h2>
-              ${postList}
-            </div>
-          `;
+          // 渲染函数
+          function renderPosts() {
+            let filtered = posts;
+
+            if (currentCategory && currentCategory !== '全部') {
+              filtered = filtered.filter(p => p.category === currentCategory);
+            }
+
+            if (searchKeyword) {
+              const keyword = searchKeyword.toLowerCase();
+              filtered = filtered.filter(p =>
+                p.title.toLowerCase().includes(keyword) ||
+                (p.excerpt && p.excerpt.toLowerCase().includes(keyword))
+              );
+            }
+
+            // 生成文章 HTML
+            const postList = filtered.length > 0
+              ? filtered.map((post, index) => {
+                  const postId = posts.indexOf(post);
+                  return `
+                    <article class="post-item">
+                      <h2><a href="post.html?id=${postId}" style="color: #4a6fa5; text-decoration: none;">${post.title}</a></h2>
+                      <p class="date">${post.date}</p>
+                      <p class="excerpt">${post.excerpt || '暂无摘要'}</p>
+                      <span class="category-tag">${post.category}</span>
+                    </article>
+                  `;
+                }).join('')
+              : `<div class="no-results">没有找到匹配的文章。</div>`;
+
+            container.innerHTML = `
+              <div>
+                <h2 style="color: #333; font-size: 1.5rem; margin-bottom: 1rem;">最新文章</h2>
+                
+                <!-- 搜索框 -->
+                <div class="search-box">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <input type="text" id="search-input" placeholder="搜索文章标题或内容..." />
+                </div>
+
+                <!-- 分类下拉框 -->
+                <select class="filter-select" id="category-filter">
+                  ${categories.map(cat => `<option value="${cat}" ${cat === currentCategory ? 'selected' : ''}>${cat}</option>`).join('')}
+                </select>
+
+                <!-- 文章列表 -->
+                <div id="posts-list">${postList}</div>
+              </div>
+            `;
+
+            // 绑定事件
+            bindEvents();
+          }
+
+          // 绑定事件监听
+          function bindEvents() {
+            const searchInput = document.getElementById('search-input');
+            const categoryFilter = document.getElementById('category-filter');
+
+            // 搜索输入
+            searchInput.addEventListener('input', (e) => {
+              searchKeyword = e.target.value.trim();
+              renderPosts();
+            });
+
+            // 分类下拉框变化
+            categoryFilter.addEventListener('change', () => {
+              currentCategory = categoryFilter.value;
+              renderPosts();
+            });
+          }
+
+          // 初始渲染
+          renderPosts();
         })
         .catch(err => {
           container.innerHTML = `<p style="color:red;">加载失败: ${err.message}</p>`;
