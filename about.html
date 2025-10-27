@@ -4,12 +4,269 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>关于我 - 我的个人博客</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+   
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #4a6fa5;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
+
+    nav {
+      margin-top: 1rem;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a.active {
+      border-bottom: 2px solid #fff;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #4a6fa5;
+      margin-bottom: 1rem;
+    }
+
+    .profile-header h2 {
+      margin: 0.5rem 0;
+      color: #4a6fa5;
+    }
+
+    .profile-header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .content-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .about-section, .timeline-section {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .about-section h3,
+    .timeline-section h3 {
+      color: #4a6fa5;
+      border-left: 4px solid #4a6fa5;
+      padding-left: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .about-section ul {
+      line-height: 1.8;
+    }
+
+    /* 技能条样式 */
+    .skills {
+      margin-top: 1rem;
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .skill-item label {
+      width: 100px;
+      font-weight: bold;
+    }
+
+    .skill-bar {
+      flex-grow: 1;
+      height: 10px;
+      background: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: #4a6fa5;
+      border-radius: 5px;
+      transition: width 1s ease-in-out;
+    }
+
+    .skill-progress.html { width: 90%; }
+    .skill-progress.css { width: 70%; }
+    .skill-progress.js { width: 75%; }
+    .skill-progress.git { width: 80%; }
+    .skill-progress.java { width: 85%; }
+    .skill-progress.spring { width: 80%; }
+    .skill-progress.mysql { width: 75%; }
+    .skill-progress.maven { width: 70%; }
+
+    /* 时间轴样式 */
+    .timeline-horizontal {
+      position: relative;
+      margin-left: 20px;
+    }
+
+    .timeline-horizontal::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20px;
+      height: 2px;
+      width: 100%;
+      background: #4a6fa5;
+      z-index: 0;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .timeline-item.left {
+      justify-content: flex-start;
+    }
+
+    .timeline-item.right {
+      justify-content: flex-end;
+    }
+
+    .timeline-dot {
+      width: 12px;
+      height: 12px;
+      background: #4a6fa5;
+      border: 3px solid white;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px #4a6fa5;
+      position: absolute;
+      left: 0;
+      z-index: 1;
+    }
+
+    .timeline-content {
+      max-width: 400px;
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .timeline-date {
+      font-size: 0.9rem;
+      color: #4a6fa5;
+      font-weight: bold;
+    }
+
+    .timeline-card {
+      margin-top: 0.5rem;
+    }
+
+    .contact-section {
+      text-align: center;
+      margin: 3rem 0 2rem;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .contact-section a {
+      color: #4a6fa5;
+      text-decoration: none;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #4a6fa5;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      color: #666;
+      font-size: 0.9rem;
+      background: #eee;
+      margin-top: 3rem;
+    }
+
+    /* 暗黑模式适配（可选） */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+      }
+      header, footer, .contact-section, .timeline-content {
+        background: #242424;
+        color: #e0e0e0;
+      }
+      nav a {
+        color: #aaa;
+      }
+      .skill-bar {
+        background: #555;
+      }
+      .timeline-horizontal::before {
+        background: #8ba7ef;
+      }
+      .timeline-dot {
+        background: #8ba7ef;
+        box-shadow: 0 0 0 2px #8ba7ef;
+      }
+      .timeline-date {
+        color: #8ba7ef;
+      }
+      .contact-section a {
+        color: #8ba7ef;
+      }
+    }
+  </style>
 </head>
 <body>
 
   <header>
-    <h1>✨ 咸鱼梦想家</h1>
+    <h1>咸鱼梦想家</h1>
     <nav>
       <a href="index.html">首页</a>
       <a href="about.html" class="active">关于</a>
@@ -22,54 +279,63 @@
     <div class="profile-header">
       <img src="images/img1.jpg" alt="我的头像" class="avatar" />
       <h2>你好，我是咸鱼梦想家</h2>
-      <p>一条热爱前端、坚持写作、相信积累力量的「技术咸鱼」。</p>
+      <p>一名热爱编程、坚持写作、相信积累力量的「后端咸鱼」。</p>
     </div>
 
     <!-- 主要内容区域 -->
     <div class="content-wrapper">
       <section class="about-section">
         <h3>📌 关于我</h3>
-        <p>我是一名自学前端的开发者，从零开始学习 HTML、CSS 和 JavaScript。我相信：<strong>持续输出是最好的学习方式</strong>，所以创建了这个博客，记录我的成长轨迹。</p>
+        <p>我是一名计算机专业的大学生，目前专注于 <strong>Java 后端开发</strong>。我相信：<strong>输出倒逼输入，写作是最好的学习方式</strong>，因此创建了这个博客，记录我在技术路上的每一次思考与突破。</p>
 
         <h3>🎯 兴趣与方向</h3>
         <ul>
-          <li>前端开发：专注原生 JS、响应式设计、性能优化</li>
-          <li>技术写作：用简单语言解释复杂概念</li>
-          <li>效率工具：探索 VS Code、Markdown、自动化工作流</li>
-          <li>阅读与思考：关注认知提升与个人成长</li>
+          <li><strong>Java 后端开发</strong>：深入理解 JVM、并发编程、Spring 生态（Spring Boot / Spring MVC / MyBatis）</li>
+          <li><strong>数据库设计</strong>：MySQL 性能优化、索引原理、事务与锁机制</li>
+          <li><strong>系统架构</strong>：从单体到微服务，探索高可用、高并发的设计模式</li>
+          <li><strong>技术写作</strong>：用通俗语言讲解复杂概念，帮助初学者少走弯路</li>
         </ul>
 
         <h3>🛠️ 正在学习</h3>
         <ul>
-          <li>DOM 深入原理与事件循环机制</li>
-          <li>异步编程（Promise、async/await）</li>
-          <li>构建一个无需框架的静态博客系统</li>
+          <li>Spring Boot 自动配置原理与源码浅析</li>
+          <li>MyBatis-Plus 高级特性与代码生成器实践</li>
+          <li>构建一个基于 SSM 的个人博客系统（无框架依赖）</li>
+          <li>LeetCode 算法训练与常见设计模式应用</li>
         </ul>
 
         <h3>📊 技能掌握</h3>
         <div class="skills">
           <div class="skill-item">
-            <label>HTML</label>
+            <label>Java</label>
             <div class="skill-bar">
-              <div class="skill-progress html"></div>
+              <div class="skill-progress java"></div>
             </div>
             <span>85%</span>
           </div>
 
           <div class="skill-item">
-            <label>CSS</label>
+            <label>Spring Boot</label>
             <div class="skill-bar">
-              <div class="skill-progress css"></div>
+              <div class="skill-progress spring"></div>
+            </div>
+            <span>80%</span>
+          </div>
+
+          <div class="skill-item">
+            <label>MySQL</label>
+            <div class="skill-bar">
+              <div class="skill-progress mysql"></div>
             </div>
             <span>75%</span>
           </div>
 
           <div class="skill-item">
-            <label>JavaScript</label>
+            <label>Maven</label>
             <div class="skill-bar">
-              <div class="skill-progress js"></div>
+              <div class="skill-progress maven"></div>
             </div>
-            <span>65%</span>
+            <span>70%</span>
           </div>
 
           <div class="skill-item">
@@ -77,7 +343,7 @@
             <div class="skill-bar">
               <div class="skill-progress git"></div>
             </div>
-            <span>60%</span>
+            <span>80%</span>
           </div>
         </div>
       </section>
@@ -87,10 +353,10 @@
         <div class="timeline-horizontal">
           <div class="timeline-item left">
             <div class="timeline-content">
-              <div class="timeline-date">2024年3月</div>
+              <div class="timeline-date">2024年9月</div>
               <div class="timeline-card">
-                <strong>开始学习 HTML</strong>
-                <p>写下第一行代码，搭建了人生第一个静态页面</p>
+                <strong>大学入学，接触编程</strong>
+                <p>第一门课是java语言，从此开启了我的计算机之旅</p>
               </div>
             </div>
             <div class="timeline-dot"></div>
@@ -98,10 +364,10 @@
 
           <div class="timeline-item right">
             <div class="timeline-content">
-              <div class="timeline-date">2024年6月</div>
+              <div class="timeline-date">2025年3月</div>
               <div class="timeline-card">
-                <strong>掌握 CSS 布局</strong>
-                <p>学会了 Flexbox 和响应式设计，页面终于能在手机上看了</p>
+                <strong>学习 Java 基础</strong>
+                <p>掌握面向对象、集合框架、异常处理等核心知识</p>
               </div>
             </div>
             <div class="timeline-dot"></div>
@@ -109,10 +375,10 @@
 
           <div class="timeline-item left">
             <div class="timeline-content">
-              <div class="timeline-date">2024年9月</div>
+              <div class="timeline-date">2025年6月</div>
               <div class="timeline-card">
-                <strong>深入 JavaScript</strong>
-                <p>理解了 DOM 操作和事件机制，网页开始“动”起来了</p>
+                <strong>进入数据库世界</strong>
+                <p>学习 MySQL，理解 SQL 优化、索引、事务隔离级别</p>
               </div>
             </div>
             <div class="timeline-dot"></div>
@@ -120,10 +386,10 @@
 
           <div class="timeline-item right">
             <div class="timeline-content">
-              <div class="timeline-date">2025年1月</div>
+              <div class="timeline-date">2025年12月</div>
               <div class="timeline-card">
-                <strong>创建个人博客</strong>
-                <p>决定用原生 JS 搭建博客，坚持每周输出一篇技术笔记</p>
+                <strong>掌握 SSM 框架整合</strong>
+                <p>完成第一个 Java Web 项目：图书管理系统</p>
               </div>
             </div>
             <div class="timeline-dot"></div>
@@ -133,8 +399,8 @@
             <div class="timeline-content">
               <div class="timeline-date">现在</div>
               <div class="timeline-card">
-                <strong>持续学习中</strong>
-                <p>目标：掌握前端核心原理，写出更优雅、高效的代码</p>
+                <strong>深入 Spring Boot 与实战</strong>
+                <p>目标：打造高性能、可维护的后端系统，向全栈进发</p>
               </div>
             </div>
             <div class="timeline-dot"></div>
@@ -145,7 +411,7 @@
 
     <div class="contact-section">
       <h3>📬 联系我</h3>
-      <p>欢迎通过邮箱 <a href="mailto:me@example.com">me@example.com</a> 或在 <a href="#">GitHub</a> 找到我。</p>
+      <p>欢迎通过邮箱 <a href="mailto:me@example.com">2169232403@qq.com</a> 或在 <a href="https://github.com/frefsd" target="_blank">GitHub</a> 找到我。</p>
       <a href="index.html" class="back-link">返回首页</a>
     </div>
   </main>
@@ -153,5 +419,6 @@
   <footer>
     &copy; 2025 咸鱼梦想家. 保持好奇，持续前行。
   </footer>
+
 </body>
 </html>
