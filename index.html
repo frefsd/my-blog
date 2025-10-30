@@ -108,6 +108,17 @@
 				font-size: 0.8rem;
 				margin-top: 0.5rem;
 			}
+			
+			/* 数字雨滴Canvas样式 */
+			        #rainCanvas {
+			            position: fixed;
+			            top: 0;
+			            left: 0;
+			            width: 100%;
+			            height: 100%;
+			            z-index: -1;
+			            pointer-events: none;
+			        }
 
 			/*暗黑模式样式（独立写在最外层）*/
 			.dark-mode {
@@ -207,7 +218,94 @@
 
 			document.body.appendChild(toggleButton);
 		}
-
+		
+		// 数字雨滴效果代码
+		document.addEventListener('DOMContentLoaded', function() {
+		  const canvas = document.createElement('canvas');
+		  canvas.id = 'rainCanvas';
+		  document.body.appendChild(canvas);
+		  
+		  const ctx = canvas.getContext('2d');
+		  canvas.width = window.innerWidth;
+		  canvas.height = window.innerHeight;
+		  
+		  const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		  let particles = [];
+		  
+		  class Particle {
+		    constructor() {
+		      this.reset();
+		    }
+		    
+		    reset() {
+		      this.x = Math.random() * canvas.width;
+		      this.y = Math.random() * -canvas.height;
+		      this.speedY = Math.random() * 5 + 5;
+		      this.speedX = (Math.random() - 0.5) * 0.5;
+		      this.size = Math.random() * 20 + 15;
+		      this.opacity = Math.random() * 0.5 + 0.5;
+		      this.char = chars[Math.floor(Math.random() * chars.length)];
+		      this.gravity = 0.1;
+		      this.windResistance = 0.98;
+		      this.changeInterval = Math.floor(Math.random() * 10) + 5;
+		      this.frameCount = 0;
+		    }
+		    
+		    update() {
+		      this.speedY += this.gravity;
+		      this.speedX *= this.windResistance;
+		      
+		      this.x += this.speedX;
+		      this.y += this.speedY;
+		      
+		      this.frameCount++;
+		      if (this.frameCount >= this.changeInterval) {
+		        this.char = chars[Math.floor(Math.random() * chars.length)];
+		        this.frameCount = 0;
+		      }
+		      
+		      if (this.y > canvas.height || this.x < 0 || this.x > canvas.width) {
+		        this.reset();
+		        this.y = Math.random() * -50;
+		      }
+		    }
+		    
+		    draw() {
+		      ctx.font = `${this.size}px 'Courier New', monospace`;
+		      ctx.fillStyle = `rgba(0, 255, 0, ${this.opacity})`;
+		      ctx.fillText(this.char, this.x, this.y);
+		    }
+		  }
+		  
+		  function initParticles(count) {
+		    particles = [];
+		    for (let i = 0; i < count; i++) {
+		      particles.push(new Particle());
+		    }
+		  }
+		  
+		  function animate() {
+		    ctx.fillStyle = 'rgba(15, 12, 41, 0.1)';
+		    ctx.fillRect(0, 0, canvas.width, canvas.height);
+		    
+		    particles.forEach(particle => {
+		      particle.update();
+		      particle.draw();
+		    });
+		    
+		    requestAnimationFrame(animate);
+		  }
+		  
+		  window.addEventListener('resize', function() {
+		    canvas.width = window.innerWidth;
+		    canvas.height = window.innerHeight;
+		  });
+		  
+		  // 初始化并开始动画
+		  initParticles(80); // 减少粒子数量以提高性能
+		  animate();
+		});
+		
 		// 初始化
 		document.addEventListener('DOMContentLoaded', initDarkMode);
 	</script>
