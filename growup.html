@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas粒子动态背景</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
+      overflow: hidden; /* 隐藏滚动条 */
+    }
+    #particleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0f172a; /* 背景色，可修改 */
+      z-index: -1; /* 置于页面底层，不影响其他内容 */
+    }
+    /* 可选：添加页面内容示例 */
+    .content {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      text-align: center;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Arial', sans-serif;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas画布 -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- 页面内容（可选，仅作示例） -->
+  <div class="content">
+    <p></p>
+  </div>
+
+  <script>
+    // 获取Canvas元素和上下文
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // 自适应屏幕尺寸
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // 粒子配置
+    const particleConfig = {
+      count: 80, // 粒子数量（可调整）
+      size: 2, // 粒子大小
+      color: 'rgba(96, 165, 250, 0.7)', // 粒子颜色（蓝色系，可修改）
+      lineColor: 'rgba(96, 165, 250, 0.3)', // 连接线颜色
+      lineDistance: 120, // 粒子间连线距离阈值
+      speed: 0.5, // 粒子移动速度
+      mouseAttractDistance: 150, // 鼠标吸引范围
+      mouseAttractForce: 1.2 // 鼠标吸引力强度
+    };
+
+    // 存储粒子数组
+    const particles = [];
+
+    // 鼠标位置
+    const mouse = {
+      x: null,
+      y: null
+    };
+
+    // 监听鼠标移动
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    // 粒子类
+    class Particle {
+      constructor() {
+        // 初始化位置（随机分布在画布上）
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+
+        // 初始化速度（随机方向）
+        this.vx = (Math.random() - 0.5) * particleConfig.speed;
+        this.vy = (Math.random() - 0.5) * particleConfig.speed;
+
+        // 粒子大小
+        this.size = particleConfig.size;
+      }
+
+      // 更新粒子位置
+      update() {
+        // 鼠标吸引逻辑
+        if (mouse.x && mouse.y) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          // 当粒子在鼠标吸引范围内时，向鼠标移动
+          if (distance < particleConfig.mouseAttractDistance) {
+            const force = (particleConfig.mouseAttractDistance - distance) / particleConfig.mouseAttractDistance;
+            this.vx += (dx / distance) * force * particleConfig.mouseAttractForce;
+            this.vy += (dy / distance) * force * particleConfig.mouseAttractForce;
+          }
+        }
+
+        // 速度衰减（避免粒子速度过快）
+        this.vx *= 0.98;
+        this.vy *= 0.98;
+
+        // 更新位置
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // 边界碰撞检测（粒子碰到画布边缘反弹）
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+
+      // 绘制粒子
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = particleConfig.color;
+        ctx.fill();
+      }
+    }
+
+    // 绘制粒子间连接线
+    function drawLines() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const p1 = particles[i];
+          const p2 = particles[j];
+
+          // 计算粒子间距离
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          // 距离小于阈值时绘制连接线
+          if (distance < particleConfig.lineDistance) {
+            ctx.beginPath();
+            ctx.strokeStyle = particleConfig.lineColor;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    // 初始化粒子
+    function initParticles() {
+      particles.length = 0; // 清空现有粒子
+      for (let i = 0; i < particleConfig.count; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    // 动画循环
+    function animate() {
+      // 半透明填充画布（实现拖影效果）
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // 更新并绘制所有粒子
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+
+      // 绘制连接线
+      drawLines();
+
+      // 递归调用，实现循环动画
+      requestAnimationFrame(animate);
+    }
+
+    // 启动动画
+    initParticles();
+    animate();
+  </script>
+</body>
+</html>
