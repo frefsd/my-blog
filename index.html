@@ -23,70 +23,71 @@
 
 			/* 豪华下拉框样式 */
 			.filter-select {
-			  display: block;
-			  width: 100%;
-			  padding: 0.8rem 1rem;
-			  font-size: 1.05rem;
-			  font-weight: 500;
-			  color: #444;
-			  background-color: white;
-			  background-image: linear-gradient(180deg, #f9f9f9 0%, #eef2f6 100%), 
-			                    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C2.088 5.289 2 4.781 2 4.334 2 3.598 2.58 3 3.279 3h9.442c.699 0 1.279.598 1.279 1.334 0 .447-.088.955-.451 1.324L8.753 11.14c-.192.189-.44.293-.707.293-.267 0-.515-.104-.707-.293z'/%3E%3C/svg%3E");
-			  background-repeat: no-repeat;
-			  background-position: right 1rem center;
-			  background-size: 1.2em;
-			  border: 1px solid #d1d8e0;
-			  border-radius: 16px;
-			  box-shadow: 0 4px 12px rgba(134, 158, 196, 0.15);
-			  appearance: none;
-			  position: relative;
-			  cursor: pointer;
-			  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-			  padding-right: 2.8rem;
-			  margin-bottom: 1.5rem; /* 增加下方间距 */
+				display: block;
+				width: 100%;
+				padding: 0.8rem 1rem;
+				font-size: 1.05rem;
+				font-weight: 500;
+				color: #444;
+				background-color: white;
+				background-image: linear-gradient(180deg, #f9f9f9 0%, #eef2f6 100%),
+					url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C2.088 5.289 2 4.781 2 4.334 2 3.598 2.58 3 3.279 3h9.442c.699 0 1.279.598 1.279 1.334 0 .447-.088.955-.451 1.324L8.753 11.14c-.192.189-.44.293-.707.293-.267 0-.515-.104-.707-.293z'/%3E%3C/svg%3E");
+				background-repeat: no-repeat;
+				background-position: right 1rem center;
+				background-size: 1.2em;
+				border: 1px solid #d1d8e0;
+				border-radius: 16px;
+				box-shadow: 0 4px 12px rgba(134, 158, 196, 0.15);
+				appearance: none;
+				position: relative;
+				cursor: pointer;
+				transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+				padding-right: 2.8rem;
+				margin-bottom: 1.5rem;
+				/* 增加下方间距 */
 
 			}
-			
+
 			/* 悬停效果 */
 			.filter-select:hover {
-			  border-color: #9db2c9;
-			  box-shadow: 0 6px 16px rgba(134, 158, 196, 0.25);
-			  transform: translateY(-1px);
+				border-color: #9db2c9;
+				box-shadow: 0 6px 16px rgba(134, 158, 196, 0.25);
+				transform: translateY(-1px);
 			}
-			
+
 			/* 聚焦效果 */
 			.filter-select:focus {
-			  outline: none;
-			  border-color: #4a6fa5;
-			  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2), 0 6px 16px rgba(74, 111, 165, 0.15);
-			  background-color: white;
-			  transform: translateY(-2px);
+				outline: none;
+				border-color: #4a6fa5;
+				box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2), 0 6px 16px rgba(74, 111, 165, 0.15);
+				background-color: white;
+				transform: translateY(-2px);
 			}
-			
+
 			.dark-mode .filter-select {
-			  background: linear-gradient(180deg, #333c4a 0%, #2b333e 100%), 
-			              url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23aaa' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C2.088 5.289 2 4.781 2 4.334 2 3.598 2.58 3 3.279 3h9.442c.699 0 1.279.598 1.279 1.334 0 .447-.088.955-.451 1.324L8.753 11.14c-.192.189-.44.293-.707.293-.267 0-.515-.104-.707-.293z'/%3E%3C/svg%3E");
-			  background-repeat: no-repeat;
-			  background-position: right 1rem center;
-			  background-size: 1.2em;
-			  border-color: #444d5a;
-			  color: #e0e0e0;
+				background: linear-gradient(180deg, #333c4a 0%, #2b333e 100%),
+					url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23aaa' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C2.088 5.289 2 4.781 2 4.334 2 3.598 2.58 3 3.279 3h9.442c.699 0 1.279.598 1.279 1.334 0 .447-.088.955-.451 1.324L8.753 11.14c-.192.189-.44.293-.707.293-.267 0-.515-.104-.707-.293z'/%3E%3C/svg%3E");
+				background-repeat: no-repeat;
+				background-position: right 1rem center;
+				background-size: 1.2em;
+				border-color: #444d5a;
+				color: #e0e0e0;
 			}
-			
+
 			.dark-mode .filter-select:hover {
-			  border-color: #667;
-			  box-shadow: 0 6px 16px rgba(100, 120, 160, 0.2);
+				border-color: #667;
+				box-shadow: 0 6px 16px rgba(100, 120, 160, 0.2);
 			}
-			
+
 			.dark-mode .filter-select:focus {
-			  border-color: #6b8ed6;
-			  box-shadow: 0 0 0 3px rgba(107, 142, 214, 0.25), 0 6px 16px rgba(107, 142, 214, 0.15);
+				border-color: #6b8ed6;
+				box-shadow: 0 0 0 3px rgba(107, 142, 214, 0.25), 0 6px 16px rgba(107, 142, 214, 0.15);
 			}
-			
+
 			/* 按下效果 */
 			.filter-select:active {
-			  transform: translateY(0);
-			  box-shadow: 0 2px 8px rgba(134, 158, 196, 0.15);
+				transform: translateY(0);
+				box-shadow: 0 2px 8px rgba(134, 158, 196, 0.15);
 			}
 
 			/* 文章列表 */
@@ -187,31 +188,34 @@
 			.dark-mode .no-results {
 				color: #999 !important;
 			}
-			
+
 			/*标题动感*/
 			.dynamic-title {
-			  font-size: 2.2rem;
-			  color: #4a6fa5; /* 默认颜色 */
-			  margin: 0 0 1rem 0;
-			  font-weight: 600;
-			  animation: pulse 2s ease-in-out infinite alternate; /* 初始脉动动画 */
+				font-size: 2.2rem;
+				color: #4a6fa5;
+				/* 默认颜色 */
+				margin: 0 0 1rem 0;
+				font-weight: 600;
+				animation: pulse 2s ease-in-out infinite alternate;
+				/* 初始脉动动画 */
 			}
-			
+
 			/* 定义脉动动画 */
 			@keyframes pulse {
-			  from {
-			    transform: scale(1);
-			  }
-			  to {
-			    transform: scale(1.05);
-			  }
+				from {
+					transform: scale(1);
+				}
+
+				to {
+					transform: scale(1.05);
+				}
 			}
-			
+
 			/* 当鼠标悬停时，覆盖默认样式 */
 			.dynamic-title:hover {
-			  animation: none; /* 取消脉动动画 */
+				animation: none;
+				/* 取消脉动动画 */
 			}
-			
 		</style>
 	</head>
 
@@ -287,12 +291,12 @@
 				reset() {
 					this.x = Math.random() * canvas.width;
 					this.y = Math.random() * -canvas.height;
-					this.speedY = Math.random() * 5 + 5;
+					this.speedY = Math.random() * 2 + 2; /*更改粒子速度的初始速度*/
 					this.speedX = (Math.random() - 0.5) * 0.5;
 					this.size = Math.random() * 20 + 15;
 					this.opacity = Math.random() * 0.5 + 0.5;
 					this.char = chars[Math.floor(Math.random() * chars.length)];
-					this.gravity = 0.1;
+					this.gravity = 0.05; /*更改粒子的加速度*/
 					this.windResistance = 0.98;
 					this.changeInterval = Math.floor(Math.random() * 10) + 5;
 					this.frameCount = 0;
@@ -348,6 +352,10 @@
 				canvas.height = window.innerHeight;
 			});
 
+			// 根据屏幕大小自动调整粒子数量
+			const isMobile = window.innerWidth <= 768;
+			initParticles(isMobile ? 40 : 100);
+			
 			// 初始化并开始动画
 			initParticles(80); // 减少粒子数量以提高性能
 			animate();
@@ -373,8 +381,8 @@
 		  color: white;
 		  overflow: hidden;
 		">
-		  <!-- 左侧：图片 -->
-		  <div style="
+			<!-- 左侧：图片 -->
+			<div style="
 		    flex: 1 1 300px;
 		    min-width: 280px;
 		    height: 300px;
@@ -382,52 +390,48 @@
 		    border-radius: 12px;
 		    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 		  ">
-		    <img 
-		      src="images/gg.jpg" 
-		      alt="人物形象" 
-		      style="
+				<img src="images/gg.jpg" alt="人物形象" style="
 		        width: 100%;
 		        height: 100%;
 		        object-fit: cover; /* 保证图片填充且居中，可改为 contain 防裁剪 */
 		        object-position: center;
-		      "
-		    >
-		  </div>
-		
-		  <!-- 右侧：文字内容 -->
-		  <div style="
+		      ">
+			</div>
+
+			<!-- 右侧：文字内容 -->
+			<div style="
 		    flex: 2 1 400px;
 		    min-width: 280px;
 		    text-align: center;
 		  ">
-		    <h1 class="dynamic-title" id="title">我是一条臭咸鱼</h1>
-		
-		<script>
-		const title = document.getElementById('title');
-		const colors = [
-		  '#FF6B6B', '#4ECDC4', '#45B7D1', 
-		  '#96CEB4', '#FFEAA7', '#DDA0DD', 
-		  '#98D8C8', '#F7DC6F', '#BB8FCE'
-		];
-		
-		title.addEventListener('mouseenter', function() {
-		  const randomColor = colors[Math.floor(Math.random() * colors.length)];
-		  this.style.color = randomColor;
-		  // 注意：原代码中的 ${randomColor}40 和 ${randomColor}20 应该更正为 rgba 格式来设置透明度
-		  this.style.textShadow = `0 0 8px ${randomColor}, 0 0 16px ${randomColor}`;
-		  this.style.transform = 'scale(1.05)';
-		});
-		
-		title.addEventListener('mouseleave', function() {
-		  this.style.color = '#4a6fa5'; // 回到初始颜色
-		  this.style.textShadow = 'none';
-		  this.style.transform = 'scale(1)'; // 返回原始大小，并恢复脉动动画
-		  this.style.animation = 'pulse 2s ease-in-out infinite alternate';
-		});
-		</script>
-		
-		    <nav style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-		      <a href="index.html" style="
+				<h1 class="dynamic-title" id="title">我是一条臭咸鱼</h1>
+
+				<script>
+					const title = document.getElementById('title');
+					const colors = [
+						'#FF6B6B', '#4ECDC4', '#45B7D1',
+						'#96CEB4', '#FFEAA7', '#DDA0DD',
+						'#98D8C8', '#F7DC6F', '#BB8FCE'
+					];
+
+					title.addEventListener('mouseenter', function() {
+						const randomColor = colors[Math.floor(Math.random() * colors.length)];
+						this.style.color = randomColor;
+						// 注意：原代码中的 ${randomColor}40 和 ${randomColor}20 应该更正为 rgba 格式来设置透明度
+						this.style.textShadow = `0 0 8px ${randomColor}, 0 0 16px ${randomColor}`;
+						this.style.transform = 'scale(1.05)';
+					});
+
+					title.addEventListener('mouseleave', function() {
+						this.style.color = '#4a6fa5'; // 回到初始颜色
+						this.style.textShadow = 'none';
+						this.style.transform = 'scale(1)'; // 返回原始大小，并恢复脉动动画
+						this.style.animation = 'pulse 2s ease-in-out infinite alternate';
+					});
+				</script>
+
+				<nav style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+					<a href="index.html" style="
 		        color: #4a6fa5; 
 		        text-decoration: none; 
 		        font-weight: 500;
@@ -436,7 +440,7 @@
 		        border-radius: 8px;
 		        transition: color 0.3s;
 		      ">首页</a>
-		      <a href="about.html" style="
+					<a href="about.html" style="
 		        color: #4a6fa5; 
 		        text-decoration: none; 
 		        font-weight: 500;
@@ -445,7 +449,7 @@
 		        border-radius: 8px;
 		        transition: color 0.3s;
 		      ">关于</a>
-		      <a href="growup.html" style="
+					<a href="growup.html" style="
 		        color: #4a6fa5; 
 		        text-decoration: none; 
 		        font-weight: 500;
@@ -454,11 +458,13 @@
 		        border-radius: 8px;
 		        transition: color 0.3s;
 		      ">成长</a>
-		    </nav>
-		  </div>
-		
-		  <!-- 可选：遮罩或装饰元素（可删） -->
-		  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.05)); pointer-events: none;"></div>
+				</nav>
+			</div>
+
+			<!-- 可选：遮罩或装饰元素（可删） -->
+			<div
+				style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.05)); pointer-events: none;">
+			</div>
 		</header>
 		<main id="home-container" class="container">
 			<p>正在加载文章...</p>
