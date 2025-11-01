@@ -298,13 +298,41 @@
 					color: #8ba7ef;
 				}
 			}
+			
+			/*标题动感*/
+			.dynamic-title {
+				font-size: 2.8rem;
+				color: white;
+				/* 改为白色，适配背景图 */
+				margin: 0;
+				font-weight: bold;
+				letter-spacing: 1px;
+				text-align: center;
+			
+				/* 恢复发光阴影 */
+				text-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.6);
+			
+				/* 添加脉动动画 */
+				animation: pulse 2s ease-in-out infinite alternate;
+			}
+			
+			/* 定义脉动动画 */
+			@keyframes pulse {
+				from {
+					transform: scale(1);
+				}
+			
+				to {
+					transform: scale(1.05);
+				}
+			}
 		</style>
 	</head>
 	<body>
 
 		<video autoplay muted loop id="bg-video"
 			style="position:fixed; width:100%; height:100%; object-fit:cover; z-index:-1;">
-			<source src="video/qa.mp4" type="video/mp4">
+			<source src="video/mn.mp4" type="video/mp4">
 		</video>
 		<header>
 			<h1 class="dynamic-title typewriter">咸鱼梦想家</h1>

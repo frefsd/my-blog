@@ -227,54 +227,62 @@
 				transform: scale(1.05) !important;
 			}
 		</style>
-		
-		
+
+
 		<style>
-		    .slideshow-bg {
-		        position: absolute;
-		        top: 0;
-		        left: 0;
-		        width: 100%;
-		        height: 100%;
-		        z-index: -1;
-		    }
-		    
-		    .slide {
-		        position: absolute;
-		        top: 0;
-		        left: 0;
-		        width: 100%;
-		        height: 100%;
-		        opacity: 0;
-		        background-size: cover;
-		        background-position: center;
-		        animation: slideShow 16s infinite;
-		    }
-		    
-		    .slide:nth-child(1) {
-		        background-image: url('images/an.jpeg');
-		        animation-delay: 0s;
-		    }
-		    
-		    .slide:nth-child(2) {
-		        background-image: url('images/gg.jpg');
-		        animation-delay: 4s;
-		    }
-		    
-		    .slide:nth-child(3) {
-		        background-image: url('images/bg.jpg');
-		        animation-delay: 8s;
-		    }
-		    
-		    .slide:nth-child(4) {
-		        background-image: url('images/R-C.jpg');
-		        animation-delay: 12s;
-		    }
-		    
-		    @keyframes slideShow {
-		        0%, 25% { opacity: 1; }
-		        30%, 100% { opacity: 0; }
-		    }
+			.slideshow-bg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: -1;
+			}
+
+			.slide {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				opacity: 0;
+				background-size: cover;
+				background-position: center;
+				animation: slideShow 16s infinite;
+			}
+
+			.slide:nth-child(1) {
+				background-image: url('images/an.jpeg');
+				animation-delay: 0s;
+			}
+
+			.slide:nth-child(2) {
+				background-image: url('images/gg.jpg');
+				animation-delay: 4s;
+			}
+
+			.slide:nth-child(3) {
+				background-image: url('images/bg.jpg');
+				animation-delay: 8s;
+			}
+
+			.slide:nth-child(4) {
+				background-image: url('images/R-C.jpg');
+				animation-delay: 12s;
+			}
+
+			@keyframes slideShow {
+
+				0%,
+				25% {
+					opacity: 1;
+				}
+
+				30%,
+				100% {
+					opacity: 0;
+				}
+			}
 		</style>
 	</head>
 
@@ -425,6 +433,7 @@
 	</script>
 
 	<body>
+		<!--
 		<header style="
 	  position: relative;
 	  width: 100vw;
@@ -444,7 +453,7 @@
 	    <div class="slide"></div>
 	</div>
 			<!-- 可选：轻微光晕增强视觉 -->
-			<div style="
+		<div style="
 	    position: absolute;
 	    top: 0;
 	    left: 0;
@@ -454,8 +463,8 @@
 	    pointer-events: none;
 	  "></div>
 
-			<!-- 标题区域 -->
-			<div style="
+		<!-- 标题区域 -->
+		<div style="
 	    position: absolute;
 	    top: 40%; /* 提高一点，避免贴底 */
 	    left: 50%;
@@ -464,13 +473,13 @@
 	    color: white;
 	    z-index: 100;
 	  ">
-				<h1 class="dynamic-title" id="title">我是一条臭咸鱼</h1>
-			</div>
+			<h1 class="dynamic-title" id="title">我是一条臭咸鱼</h1>
+		</div>
 
-			<!-- 导航标签（放在标题下方） -->
-			<nav style=" position: absolute; top: 60%; /* 在标题下方 */ left: 50%; transform: translate(-50%, -50%); display: flex;
+		<!-- 导航标签（放在标题下方） -->
+		<nav style=" position: absolute; top: 60%; /* 在标题下方 */ left: 50%; transform: translate(-50%, -50%); display: flex;
 					justify-content: center; gap: 2rem; flex-wrap: wrap; z-index: 100; pointer-events: auto; ">
-				<a href=" index.html" style="
+			<a href=" index.html" style="
 	      color: white;
 	      text-decoration: none;
 	      font-size: 1.1rem;
@@ -485,7 +494,7 @@
 	      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 	    ">首页</a>
 
-				<a href="about.html" style="
+			<a href="about.html" style="
 	      color: white;
 	      text-decoration: none;
 	      font-size: 1.1rem;
@@ -500,7 +509,7 @@
 	      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 	    ">关于</a>
 
-				<a href="growup.html" style="
+			<a href="growup.html" style="
 	      color: white;
 	      text-decoration: none;
 	      font-size: 1.1rem;
@@ -514,10 +523,10 @@
 	      border: 1px solid rgba(255, 255, 255, 0.2);
 	      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 	    ">成长</a>
-			</nav>
+		</nav>
 
-			<!-- 下方遮罩层（防止底部内容被背景图干扰） -->
-			<div style="
+		<!-- 下方遮罩层（防止底部内容被背景图干扰） -->
+		<div style="
 	    position: absolute;
 	    bottom: 0;
 	    left: 0;
@@ -527,28 +536,52 @@
 	    pointer-events: none;
 	  "></div>
 
-			<script>
-				const title = document.getElementById('title');
-				const colors = [
-					'#FF6B6B', '#4ECDC4', '#45B7D1',
-					'#96CEB4', '#FFEAA7', '#DDA0DD',
-					'#98D8C8', '#F7DC6F', '#BB8FCE'
-				];
+		<script>
+			const title = document.getElementById('title');
+			const colors = [
+				'#FF6B6B', '#4ECDC4', '#45B7D1',
+				'#96CEB4', '#FFEAA7', '#DDA0DD',
+				'#98D8C8', '#F7DC6F', '#BB8FCE'
+			];
 
-				// 鼠标进入：变彩色 + 发光 + 放大
-				title.addEventListener('mouseenter', function() {
-					const randomColor = colors[Math.floor(Math.random() * colors.length)];
-					this.style.color = randomColor;
-					this.style.textShadow = `0 0 8px ${randomColor}, 0 0 16px ${randomColor}`;
-					this.classList.add('hover-effect');
-				});
+			// 鼠标进入：变彩色 + 发光 + 放大
+			title.addEventListener('mouseenter', function() {
+				const randomColor = colors[Math.floor(Math.random() * colors.length)];
+				this.style.color = randomColor;
+				this.style.textShadow = `0 0 8px ${randomColor}, 0 0 16px ${randomColor}`;
+				this.classList.add('hover-effect');
+			});
 
-				title.addEventListener('mouseleave', function() {
-					this.style.color = 'white';
-					this.style.textShadow = '0 0 10px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.6)';
-					this.classList.remove('hover-effect');
-				});
-			</script>
+			title.addEventListener('mouseleave', function() {
+				this.style.color = 'white';
+				this.style.textShadow = '0 0 10px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.6)';
+				this.classList.remove('hover-effect');
+			});
+		</script>
+		</header> -->
+
+		<!-- 在 header 中添加视频背景 -->
+		<header style="position: relative; width: 100vw; height: 400px; overflow: hidden;">
+			<!-- 视频背景 -->
+			<video autoplay muted loop playsinline style="
+		        position: absolute;
+		        top: 50%;
+		        left: 50%;
+		        min-width: 100%;
+		        min-height: 100%;
+		        width: auto;
+		        height: auto;
+		        transform: translate(-50%, -50%);
+		        z-index: -1;
+		        object-fit: cover;
+		    ">
+				<source src="video/wt.mp4" type="video/mp4">
+			</video>
+
+			<!-- 标题和导航内容保持不变，但要确保 z-index 高于遮罩 -->
+			<div style="position: relative; z-index: 1;">
+				<!-- 标题和导航 -->
+			</div>
 		</header>
 
 		<!-- 可选：遮罩或装饰元素（可删） -->
