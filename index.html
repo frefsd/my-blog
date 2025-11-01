@@ -366,74 +366,22 @@
 
 	<body>
 
-		<header style="
-	  position: relative;
-	  width: 100vw;
-	  height: 400px;
-	  overflow: hidden;
-	">
-			<!-- 视频背景 -->
-			<video autoplay muted loop playsinline style="
-	    position: absolute;
-	    top: 50%;
-	    left: 50%;
-	    min-width: 100%;
-	    min-height: 100%;
-	    width: auto;
-	    height: auto;
-	    transform: translate(-50%, -50%);
-	    z-index: -1;
-	    object-fit: cover;
-	  ">
+		<header class="hero-header">
+			<video autoplay muted loop playsinline class="hero-video">
 				<source src="video/wt.mp4" type="video/mp4">
-				您的浏览器不支持视频标签。
 			</video>
-
-			<!-- 背景图遮罩层（提升文字可读性） -->
-			<div style="
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    width: 100%;
-	    height: 100%;
-	    background: rgba(0, 0, 0, 0.4);
-	    z-index: 0;
-	  "></div>
-
-			<!-- 标题 -->
-			<div style="
-	    position: absolute;
-	    top: 40%;
-	    left: 50%;
-	    transform: translate(-50%, -50%);
-	    text-align: center;
-	    color: white;
-	    z-index: 1;
-	  ">
-				<h1 class="dynamic-title" id="title">我是一条臭咸鱼</h1>
+			/*给背景加一层遮盖膜*/
+			<div class="hero-overlay"></div>
+			<div class="hero-content"> 
+				<h1 class="dynamic-title" id="title">一条想努力的咸鱼</h1>
 			</div>
-
-			<!-- 导航 -->
-			<nav style="
-	    position: absolute;
-	    top: 60%;
-	    left: 50%;
-	    transform: translate(-50%, -50%);
-	    display: flex;
-	    justify-content: center;
-	    gap: 2rem;
-	    z-index: 1;
-	  ">
+			<nav class="responsive-nav">
 				<a href="index.html">首页</a>
 				<a href="about.html">关于</a>
 				<a href="growup.html">成长</a>
 			</nav>
 		</header>
 
-		<!-- 可选：遮罩或装饰元素（可删） -->
-		<div
-			style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.05)); pointer-events: none;">
-		</div>
 		<main id="home-container" class="container">
 			<p>正在加载文章...</p>
 		</main>

@@ -8,8 +8,98 @@ body {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	line-height: 1.7;
 	color: #333;
-	background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+	background: transparent;
 	min-height: 100vh;
+}
+
+/* ========== HERO HEADER (首页大图区域) ========== */
+.hero-header {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);  /* 改为完全透明 */
+    z-index: 2;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #264de4;
+    z-index: 3;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    color: rgba(255, 255, 255, 0); /* 完全透明 */
+    margin: 0 0 2rem 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: none; /* 去掉阴影 */
+    animation: none; /* 去掉动画 */
+    transition: all 0.3s ease; /* 添加过渡效果 */
+    cursor: pointer; /* 鼠标指针提示可点击 */
+}
+
+.hero-content h1:hover {
+    color: rgba(255, 255, 255, 0.9); /* 悬停时显示 */
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.4);
+    animation: pulse 2s ease-in-out infinite alternate;
+}
+
+.responsive-nav {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2rem;
+    z-index: 4;
+    justify-content: center;
+    width: 100%;
+}
+
+.responsive-nav a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05); /* 更透明的背景 */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.responsive-nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
 /* ========== HEADER ========== */
@@ -319,7 +409,6 @@ footer {
 
 /* ========== 手机端响应式优化 ========== */
 @media (max-width: 480px) {
-
 	/* 基础调整 */
 	body {
 		font-size: 14px;
@@ -479,6 +568,56 @@ footer {
 		font-size: 0.8rem;
 		margin-top: 1rem;
 	}
+
+	/* Hero Header 移动端优化 */
+	.hero-header {
+	    position: relative;
+	    width: 100%;
+	    height: 80vh; /* 桌面端80% */
+	    overflow: hidden;
+	    background-color: #000;
+	}
+	
+	/* 平板 */
+	@media (max-width: 1024px) {
+	    .hero-header {
+	        height: 70vh;
+	    }
+	}
+	
+	/* 手机 */
+	@media (max-width: 768px) {
+	    .hero-header {
+	        height: 60vh;
+	    }
+	}
+	
+	/* 小手机 */
+	@media (max-width: 480px) {
+	    .hero-header {
+	        height: 50vh;
+	    }
+	}
+	
+	.hero-content h1 {
+		font-size: 1.8rem;
+		margin-bottom: 1.5rem;
+	}
+	
+	.responsive-nav {
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		bottom: 30px;
+	}
+
+	.responsive-nav a {
+		margin: 0.2rem 0;
+		padding: 0.5rem 1rem;
+		width: 80%;
+		text-align: center;
+		font-size: 1rem;
+	}
 }
 
 /* ========== 超小屏手机优化 ========== */
@@ -531,6 +670,18 @@ footer {
 
 	.content-wrapper {
 		gap: 1rem;
+	}
+
+	.hero-header {
+		height: 100vh;
+	}
+	
+	.hero-content h1 {
+		font-size: 2rem;
+	}
+	
+	.responsive-nav {
+		bottom: 20px;
 	}
 }
 
