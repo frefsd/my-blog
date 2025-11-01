@@ -192,7 +192,7 @@
 			/*标题动感*/
 			.dynamic-title {
 				font-size: 2.8rem;
-				color: white;
+				color: #4a6fa5;
 				margin: 0;
 				font-weight: bold;
 				letter-spacing: 1px;
@@ -213,73 +213,6 @@
 
 				to {
 					transform: scale(1.05);
-				}
-			}
-
-			/* 移除有问题的规则 */
-			.dynamic-title.hover-effect:hover {
-				transform: scale(1.05) !important;
-			}
-
-			/* 改为更简单的规则 */
-			.dynamic-title.hover-effect {
-				transform: scale(1.05) !important;
-			}
-		</style>
-
-
-		<style>
-			.slideshow-bg {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				z-index: -1;
-			}
-
-			.slide {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				opacity: 0;
-				background-size: cover;
-				background-position: center;
-				animation: slideShow 16s infinite;
-			}
-
-			.slide:nth-child(1) {
-				background-image: url('images/an.jpeg');
-				animation-delay: 0s;
-			}
-
-			.slide:nth-child(2) {
-				background-image: url('images/gg.jpg');
-				animation-delay: 4s;
-			}
-
-			.slide:nth-child(3) {
-				background-image: url('images/bg.jpg');
-				animation-delay: 8s;
-			}
-
-			.slide:nth-child(4) {
-				background-image: url('images/R-C.jpg');
-				animation-delay: 12s;
-			}
-
-			@keyframes slideShow {
-
-				0%,
-				25% {
-					opacity: 1;
-				}
-
-				30%,
-				100% {
-					opacity: 0;
 				}
 			}
 		</style>
@@ -432,156 +365,69 @@
 	</script>
 
 	<body>
-		<!--
+
 		<header style="
 	  position: relative;
 	  width: 100vw;
 	  height: 400px;
-	  background: url('images/az.jpg') no-repeat center center;
-	  background-size: cover;
-	  margin: 0;
-	  padding: 0;
-	  border-bottom: none;
 	  overflow: hidden;
 	">
+			<!-- 视频背景 -->
+			<video autoplay muted loop playsinline style="
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    min-width: 100%;
+	    min-height: 100%;
+	    width: auto;
+	    height: auto;
+	    transform: translate(-50%, -50%);
+	    z-index: -1;
+	    object-fit: cover;
+	  ">
+				<source src="video/wt.mp4" type="video/mp4">
+				您的浏览器不支持视频标签。
+			</video>
 
-			<div class="slideshow-bg">
-				<div class="slide"></div>
-				<div class="slide"></div>
-				<div class="slide"></div>
-				<div class="slide"></div>
-			</div>
-			<!-- 可选：轻微光晕增强视觉 -->
+			<!-- 背景图遮罩层（提升文字可读性） -->
 			<div style="
 	    position: absolute;
 	    top: 0;
 	    left: 0;
 	    width: 100%;
 	    height: 100%;
-	    background: radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 70%);
-	    pointer-events: none;
+	    background: rgba(0, 0, 0, 0.4);
+	    z-index: 0;
 	  "></div>
 
-			<!-- 标题区域 -->
+			<!-- 标题 -->
 			<div style="
 	    position: absolute;
-	    top: 40%; /* 提高一点，避免贴底 */
+	    top: 40%;
 	    left: 50%;
 	    transform: translate(-50%, -50%);
 	    text-align: center;
 	    color: white;
-	    z-index: 100;
+	    z-index: 1;
 	  ">
 				<h1 class="dynamic-title" id="title">我是一条臭咸鱼</h1>
 			</div>
 
-			<!-- 导航标签（放在标题下方） -->
-			<nav style=" position: absolute; top: 60%; /* 在标题下方 */ left: 50%; transform: translate(-50%, -50%); display: flex;
-					justify-content: center; gap: 2rem; flex-wrap: wrap; z-index: 100; pointer-events: auto; ">
-				<a href=" index.html" style="
-	      color: white;
-	      text-decoration: none;
-	      font-size: 1.1rem;
-	      font-weight: 500;
-	      padding: 0.4rem 1rem;
-	      border-radius: 6px;
-	      background: rgba(255, 255, 255, 0.1);
-	      backdrop-filter: blur(2px);
-	      transition: all 0.3s ease;
-	      box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-	      border: 1px solid rgba(255, 255, 255, 0.2);
-	      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-	    ">首页</a>
-
-				<a href="about.html" style="
-	      color: white;
-	      text-decoration: none;
-	      font-size: 1.1rem;
-	      font-weight: 500;
-	      padding: 0.4rem 1rem;
-	      border-radius: 6px;
-	      background: rgba(255, 255, 255, 0.1);
-	      backdrop-filter: blur(2px);
-	      transition: all 0.3s ease;
-	      box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-	      border: 1px solid rgba(255, 255, 255, 0.2);
-	      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-	    ">关于</a>
-
-				<a href="growup.html" style="
-	      color: white;
-	      text-decoration: none;
-	      font-size: 1.1rem;
-	      font-weight: 500;
-	      padding: 0.4rem 1rem;
-	      border-radius: 6px;
-	      background: rgba(255, 255, 255, 0.1);
-	      backdrop-filter: blur(2px);
-	      transition: all 0.3s ease;
-	      box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-	      border: 1px solid rgba(255, 255, 255, 0.2);
-	      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-	    ">成长</a>
-			</nav>
-
-			<!-- 下方遮罩层（防止底部内容被背景图干扰） -->
-			<div style="
+			<!-- 导航 -->
+			<nav style="
 	    position: absolute;
-	    bottom: 0;
-	    left: 0;
-	    width: 100%;
-	    height: 100px;
-	    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-	    pointer-events: none;
-	  "></div>
-
-			<script>
-				const title = document.getElementById('title');
-				const colors = [
-					'#FF6B6B', '#4ECDC4', '#45B7D1',
-					'#96CEB4', '#FFEAA7', '#DDA0DD',
-					'#98D8C8', '#F7DC6F', '#BB8FCE'
-				];
-
-				// 鼠标进入：变彩色 + 发光 + 放大
-				title.addEventListener('mouseenter', function() {
-					const randomColor = colors[Math.floor(Math.random() * colors.length)];
-					this.style.color = randomColor;
-					this.style.textShadow = `0 0 8px ${randomColor}, 0 0 16px ${randomColor}`;
-					this.classList.add('hover-effect');
-				});
-
-				title.addEventListener('mouseleave', function() {
-					this.style.color = 'white';
-					this.style.textShadow = '0 0 10px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.6)';
-					this.classList.remove('hover-effect');
-				});
-			</script>
-		</header>
-		
-		
-		<!-- 在 header 中添加视频背景 -->
-		<header style="position: relative; width: 100vw; height: 400px; overflow: hidden;">
-			<!-- 视频背景 -->
-			<video autoplay muted loop playsinline style="
-		        position: absolute;
-		        top: 50%;
-		        left: 50%;
-		        min-width: 100%;
-		        min-height: 100%;
-		        width: auto;
-		        height: auto;
-		        transform: translate(-50%, -50%);
-		        z-index: -1;
-		        object-fit: cover;
-		    ">
-				<source src="video/wt.mp4" type="video/mp4">
-			</video>
-
-			<!-- 标题和导航内容保持不变，但要确保 z-index 高于遮罩 -->
-			<div style="position: relative; z-index: 1;">
-				<!-- 标题和导航 -->
-			</div>
+	    top: 60%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    display: flex;
+	    justify-content: center;
+	    gap: 2rem;
+	    z-index: 1;
+	  ">
+				<a href="index.html">首页</a>
+				<a href="about.html">关于</a>
+				<a href="growup.html">成长</a>
+			</nav>
 		</header>
 
 		<!-- 可选：遮罩或装饰元素（可删） -->
@@ -597,13 +443,88 @@
 		</footer>
 
 		<script>
-			document.addEventListener('DOMContentLoaded', function() {
+			// ===== 动态标题悬停变色功能 =====
+			function initDynamicTitle() {
+				const title = document.getElementById('title');
+				if (!title) return;
+
+				// 定义一些好看的霓虹/发光颜色
+				const colors = [{
+						text: '#ffdd57',
+						shadow: 'rgba(255, 221, 87, 1)'
+					}, // 金色
+					{
+						text: '#00ffff',
+						shadow: 'rgba(0, 255, 255, 1)'
+					}, // 青色
+					{
+						text: '#ff00ff',
+						shadow: 'rgba(255, 0, 255, 1)'
+					}, // 洋红/品红
+					{
+						text: '#00ff88',
+						shadow: 'rgba(0, 255, 136, 1)'
+					}, // 荧光绿
+					{
+						text: '#ff6600',
+						shadow: 'rgba(255, 102, 0, 1)'
+					}, // 橙色
+					{
+						text: '#aa00ff',
+						shadow: 'rgba(170, 0, 255, 1)'
+					}, // 紫色
+					{
+						text: '#ff3399',
+						shadow: 'rgba(255, 51, 153, 1)'
+					}, // 粉红
+					{
+						text: '#00ccff',
+						shadow: 'rgba(0, 204, 255, 1)'
+					}, // 天蓝
+				];
+
+				// 存储原始样式（从 CSS 获取初始值）
+				const originalStyle = {
+					color: getComputedStyle(title).color,
+					textShadow: getComputedStyle(title).textShadow,
+					transform: getComputedStyle(title).transform,
+				};
+
+				function getRandomColor() {
+					return colors[Math.floor(Math.random() * colors.length)];
+				}
+
+				title.addEventListener('mouseenter', function() {
+					const color = getRandomColor();
+					title.style.color = color.text;
+					title.style.textShadow = `
+		        0 0 10px ${color.shadow},
+		        0 0 20px ${color.shadow},
+		        0 0 30px ${color.shadow}
+		      `;
+					title.style.transform = 'scale(1.05)';
+					title.style.transition = 'all 0.3s ease';
+				});
+
+				title.addEventListener('mouseleave', function() {
+					// 恢复原始样式
+					title.style.color = originalStyle.color;
+					title.style.textShadow = originalStyle.textShadow;
+					title.style.transform = originalStyle.transform;
+				});
+			}
+
+			// ===== 文章列表加载与筛选功能 =====
+			function initBlogPosts() {
 				const container = document.getElementById('home-container');
 				let currentCategory = ''; // 当前选中的分类
 				let searchKeyword = ''; // 当前搜索词
 
 				fetch('posts.json')
-					.then(res => res.json())
+					.then(res => {
+						if (!res.ok) throw new Error(`HTTP ${res.status}`);
+						return res.json();
+					})
 					.then(posts => {
 						if (!posts || posts.length === 0) {
 							container.innerHTML = '<p>暂无文章。</p>';
@@ -636,28 +557,27 @@
 								filtered.map((post, index) => {
 									const postId = posts.indexOf(post);
 									return `
-                    <article class="post-item">
-                      <h2><a href="post.html?id=${postId}" style="color: #4a6fa5; text-decoration: none;">${post.title}</a></h2>
-                      <p class="date">${post.date}</p>
-                      <p class="excerpt">${post.excerpt || '暂无摘要'}</p>
-                      <span class="category-tag">${post.category}</span>
-                    </article>
-                  `;
+		                  <article class="post-item">
+		                    <h2><a href="post.html?id=${postId}" style="color: #4a6fa5; text-decoration: none;">${post.title}</a></h2>
+		                    <p class="date">${post.date}</p>
+		                    <p class="excerpt">${post.excerpt || '暂无摘要'}</p>
+		                    <span class="category-tag">${post.category}</span>
+		                  </article>
+		                `;
 								}).join('') :
 								`<div class="no-results">没有找到匹配的文章。</div>`;
 
 							container.innerHTML = `
-              <div>
-
-                <!-- 分类下拉框 -->
-                <select class="filter-select" id="category-filter">
-                  ${categories.map(cat => `<option value="${cat}" ${cat === currentCategory ? 'selected' : ''}>${cat}</option>`).join('')}
-                </select>
-
-                <!-- 文章列表 -->
-                <div id="posts-list">${postList}</div>
-              </div>
-            `;
+		            <div>
+		              <!-- 分类下拉框 -->
+		              <select class="filter-select" id="category-filter">
+		                ${categories.map(cat => `<option value="${cat}" ${cat === currentCategory ? 'selected' : ''}>${cat}</option>`).join('')}
+		              </select>
+		
+		              <!-- 文章列表 -->
+		              <div id="posts-list">${postList}</div>
+		            </div>
+		          `;
 
 							// 绑定事件
 							bindEvents();
@@ -680,13 +600,18 @@
 							});
 						}
 
-						// 在 fetch 结束后调用一次
+						// 初始渲染
 						renderPosts();
-
 					})
 					.catch(err => {
 						container.innerHTML = `<p style="color:red;">加载失败: ${err.message}</p>`;
 					});
+			}
+
+			// ===== 初始化所有功能 =====
+			document.addEventListener('DOMContentLoaded', function() {
+				initDynamicTitle(); // 初始化标题变色
+				initBlogPosts(); // 初始化文章列表
 			});
 		</script>
 	</body>
