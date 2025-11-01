@@ -191,13 +191,19 @@
 
 			/*标题动感*/
 			.dynamic-title {
-				font-size: 2.2rem;
-				color: #4a6fa5;
-				/* 默认颜色 */
-				margin: 0 0 1rem 0;
-				font-weight: 600;
+				font-size: 2.8rem;
+				color: white;
+				/* 改为白色，适配背景图 */
+				margin: 0;
+				font-weight: bold;
+				letter-spacing: 1px;
+				text-align: center;
+
+				/* 恢复发光阴影 */
+				text-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.6);
+
+				/* 添加脉动动画 */
 				animation: pulse 2s ease-in-out infinite alternate;
-				/* 初始脉动动画 */
 			}
 
 			/* 定义脉动动画 */
@@ -211,11 +217,64 @@
 				}
 			}
 
-			/* 当鼠标悬停时，覆盖默认样式 */
-			.dynamic-title:hover {
-				animation: none;
-				/* 取消脉动动画 */
+			/* 移除有问题的规则 */
+			.dynamic-title.hover-effect:hover {
+				transform: scale(1.05) !important;
 			}
+
+			/* 改为更简单的规则 */
+			.dynamic-title.hover-effect {
+				transform: scale(1.05) !important;
+			}
+		</style>
+		
+		
+		<style>
+		    .slideshow-bg {
+		        position: absolute;
+		        top: 0;
+		        left: 0;
+		        width: 100%;
+		        height: 100%;
+		        z-index: -1;
+		    }
+		    
+		    .slide {
+		        position: absolute;
+		        top: 0;
+		        left: 0;
+		        width: 100%;
+		        height: 100%;
+		        opacity: 0;
+		        background-size: cover;
+		        background-position: center;
+		        animation: slideShow 16s infinite;
+		    }
+		    
+		    .slide:nth-child(1) {
+		        background-image: url('images/an.jpeg');
+		        animation-delay: 0s;
+		    }
+		    
+		    .slide:nth-child(2) {
+		        background-image: url('images/gg.jpg');
+		        animation-delay: 4s;
+		    }
+		    
+		    .slide:nth-child(3) {
+		        background-image: url('images/bg.jpg');
+		        animation-delay: 8s;
+		    }
+		    
+		    .slide:nth-child(4) {
+		        background-image: url('images/R-C.jpg');
+		        animation-delay: 12s;
+		    }
+		    
+		    @keyframes slideShow {
+		        0%, 25% { opacity: 1; }
+		        30%, 100% { opacity: 0; }
+		    }
 		</style>
 	</head>
 
@@ -355,7 +414,7 @@
 			// 根据屏幕大小自动调整粒子数量
 			const isMobile = window.innerWidth <= 768;
 			initParticles(isMobile ? 40 : 100);
-			
+
 			// 初始化并开始动画
 			initParticles(80); // 减少粒子数量以提高性能
 			animate();
@@ -367,105 +426,135 @@
 
 	<body>
 		<header style="
-		  position: relative;
-		  padding: 2rem;
-		  background-color: #f8f9fa;
-		  border-radius: 12px;
-		  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-		  margin: 1.5rem auto;
-		  max-width: 1000px;
-		  display: flex;
-		  flex-wrap: wrap;
-		  align-items: center;
-		  gap: 1.5rem;
-		  color: white;
-		  overflow: hidden;
-		">
-			<!-- 左侧：图片 -->
+	  position: relative;
+	  width: 100vw;
+	  height: 400px;
+	  background: url('images/az.jpg') no-repeat center center;
+	  background-size: cover;
+	  margin: 0;
+	  padding: 0;
+	  border-bottom: none;
+	  overflow: hidden;
+	">
+	
+	<div class="slideshow-bg">
+	    <div class="slide"></div>
+	    <div class="slide"></div>
+	    <div class="slide"></div>
+	    <div class="slide"></div>
+	</div>
+			<!-- 可选：轻微光晕增强视觉 -->
 			<div style="
-		    flex: 1 1 300px;
-		    min-width: 280px;
-		    height: 300px;
-		    overflow: hidden;
-		    border-radius: 12px;
-		    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-		  ">
-				<img src="images/an.jpeg" alt="人物形象" style="
-		        width: 100%;
-		        height: 100%;
-		        object-fit: cover; /* 保证图片填充且居中，可改为 contain 防裁剪 */
-		        object-position: center;
-		      ">
-			</div>
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background: radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 70%);
+	    pointer-events: none;
+	  "></div>
 
-			<!-- 右侧：文字内容 -->
+			<!-- 标题区域 -->
 			<div style="
-		    flex: 2 1 400px;
-		    min-width: 280px;
-		    text-align: center;
-		  ">
+	    position: absolute;
+	    top: 40%; /* 提高一点，避免贴底 */
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    text-align: center;
+	    color: white;
+	    z-index: 100;
+	  ">
 				<h1 class="dynamic-title" id="title">我是一条臭咸鱼</h1>
-
-				<script>
-					const title = document.getElementById('title');
-					const colors = [
-						'#FF6B6B', '#4ECDC4', '#45B7D1',
-						'#96CEB4', '#FFEAA7', '#DDA0DD',
-						'#98D8C8', '#F7DC6F', '#BB8FCE'
-					];
-
-					title.addEventListener('mouseenter', function() {
-						const randomColor = colors[Math.floor(Math.random() * colors.length)];
-						this.style.color = randomColor;
-						// 注意：原代码中的 ${randomColor}40 和 ${randomColor}20 应该更正为 rgba 格式来设置透明度
-						this.style.textShadow = `0 0 8px ${randomColor}, 0 0 16px ${randomColor}`;
-						this.style.transform = 'scale(1.05)';
-					});
-
-					title.addEventListener('mouseleave', function() {
-						this.style.color = '#4a6fa5'; // 回到初始颜色
-						this.style.textShadow = 'none';
-						this.style.transform = 'scale(1)'; // 返回原始大小，并恢复脉动动画
-						this.style.animation = 'pulse 2s ease-in-out infinite alternate';
-					});
-				</script>
-
-				<nav style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-					<a href="index.html" style="
-		        color: #4a6fa5; 
-		        text-decoration: none; 
-		        font-weight: 500;
-		        font-size: 1.1rem;
-		        padding: 0.5rem 1rem;
-		        border-radius: 8px;
-		        transition: color 0.3s;
-		      ">首页</a>
-					<a href="about.html" style="
-		        color: #4a6fa5; 
-		        text-decoration: none; 
-		        font-weight: 500;
-		        font-size: 1.1rem;
-		        padding: 0.5rem 1rem;
-		        border-radius: 8px;
-		        transition: color 0.3s;
-		      ">关于</a>
-					<a href="growup.html" style="
-		        color: #4a6fa5; 
-		        text-decoration: none; 
-		        font-weight: 500;
-		        font-size: 1.1rem;
-		        padding: 0.5rem 1rem;
-		        border-radius: 8px;
-		        transition: color 0.3s;
-		      ">成长</a>
-				</nav>
 			</div>
 
-			<!-- 可选：遮罩或装饰元素（可删） -->
-			<div
-				style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.05)); pointer-events: none;">
-			</div>
+			<!-- 导航标签（放在标题下方） -->
+			<nav style=" position: absolute; top: 60%; /* 在标题下方 */ left: 50%; transform: translate(-50%, -50%); display: flex;
+					justify-content: center; gap: 2rem; flex-wrap: wrap; z-index: 100; pointer-events: auto; ">
+				<a href=" index.html" style="
+	      color: white;
+	      text-decoration: none;
+	      font-size: 1.1rem;
+	      font-weight: 500;
+	      padding: 0.4rem 1rem;
+	      border-radius: 6px;
+	      background: rgba(255, 255, 255, 0.1);
+	      backdrop-filter: blur(2px);
+	      transition: all 0.3s ease;
+	      box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+	      border: 1px solid rgba(255, 255, 255, 0.2);
+	      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+	    ">首页</a>
+
+				<a href="about.html" style="
+	      color: white;
+	      text-decoration: none;
+	      font-size: 1.1rem;
+	      font-weight: 500;
+	      padding: 0.4rem 1rem;
+	      border-radius: 6px;
+	      background: rgba(255, 255, 255, 0.1);
+	      backdrop-filter: blur(2px);
+	      transition: all 0.3s ease;
+	      box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+	      border: 1px solid rgba(255, 255, 255, 0.2);
+	      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+	    ">关于</a>
+
+				<a href="growup.html" style="
+	      color: white;
+	      text-decoration: none;
+	      font-size: 1.1rem;
+	      font-weight: 500;
+	      padding: 0.4rem 1rem;
+	      border-radius: 6px;
+	      background: rgba(255, 255, 255, 0.1);
+	      backdrop-filter: blur(2px);
+	      transition: all 0.3s ease;
+	      box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+	      border: 1px solid rgba(255, 255, 255, 0.2);
+	      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+	    ">成长</a>
+			</nav>
+
+			<!-- 下方遮罩层（防止底部内容被背景图干扰） -->
+			<div style="
+	    position: absolute;
+	    bottom: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100px;
+	    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+	    pointer-events: none;
+	  "></div>
+
+			<script>
+				const title = document.getElementById('title');
+				const colors = [
+					'#FF6B6B', '#4ECDC4', '#45B7D1',
+					'#96CEB4', '#FFEAA7', '#DDA0DD',
+					'#98D8C8', '#F7DC6F', '#BB8FCE'
+				];
+
+				// 鼠标进入：变彩色 + 发光 + 放大
+				title.addEventListener('mouseenter', function() {
+					const randomColor = colors[Math.floor(Math.random() * colors.length)];
+					this.style.color = randomColor;
+					this.style.textShadow = `0 0 8px ${randomColor}, 0 0 16px ${randomColor}`;
+					this.classList.add('hover-effect');
+				});
+
+				title.addEventListener('mouseleave', function() {
+					this.style.color = 'white';
+					this.style.textShadow = '0 0 10px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.6)';
+					this.classList.remove('hover-effect');
+				});
+			</script>
 		</header>
+
+		<!-- 可选：遮罩或装饰元素（可删） -->
+		<div
+			style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.05)); pointer-events: none;">
+		</div>
 		<main id="home-container" class="container">
 			<p>正在加载文章...</p>
 		</main>
