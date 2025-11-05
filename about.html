@@ -8,7 +8,7 @@
 			body {
 				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 				background-color: #f5f7fa;
-				color: #333;
+				color: #e0e0e0;
 				margin: 0;
 				padding: 0;
 			}
@@ -30,7 +30,7 @@
 			}
 
 			nav a {
-				color: white;
+				color: #e0e0e0;
 				margin: 0 1rem;
 				text-decoration: none;
 				font-weight: 500;
@@ -108,7 +108,6 @@
 			.skill-item label {
 				width: 100px;
 				font-weight: bold;
-
 			}
 
 			.skill-bar {
@@ -117,7 +116,6 @@
 				background: #e0e0e0;
 				border-radius: 5px;
 				overflow: hidden;
-
 			}
 
 			.skill-progress {
@@ -206,19 +204,16 @@
 			.timeline-content {
 				max-width: 400px;
 				background: transparent;
-				/*透明显示*/
 				padding: 1rem;
 				border-radius: 8px;
 				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 				border: 1px solid rgba(255, 255, 255, 0.3);
-				/* 可选：加白色边框增强轮廓 */
 			}
 
 			.timeline-date {
 				font-size: 0.9rem;
-				color: #4a6fa5;
-				font-weight: bold;
 				color: #ffffff;
+				font-weight: bold;
 			}
 
 			.timeline-card {
@@ -230,7 +225,6 @@
 				margin: 3rem 0 2rem;
 				padding: 1.5rem;
 				background: transparent;
-				/*设置透明状*/
 				border-radius: 12px;
 				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 			}
@@ -261,7 +255,7 @@
 				margin-top: 3rem;
 			}
 
-			/* 暗黑模式适配（可选） */
+			/* 暗黑模式适配 */
 			@media (prefers-color-scheme: dark) {
 				body {
 					background-color: #1a1a1a;
@@ -302,24 +296,59 @@
 				}
 			}
 
-			/*标题动感*/
+			/* 标题动感 - 隐藏悬停显示效果 */
 			.dynamic-title {
 				font-size: 2.8rem;
 				color: #e0e0e0;
-				/* 改为白色，适配背景图 */
 				margin: 0;
 				font-weight: bold;
 				letter-spacing: 1px;
 				text-align: center;
-
-				/* 恢复发光阴影 */
-				text-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.6);
-
-				/* 添加脉动动画 */
+				text-shadow: 0 0 10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.6);
 				animation: pulse 2s ease-in-out infinite alternate;
+
+				/* 隐藏效果 */
+				opacity: 0.15;
+				transition: all 0.5s ease-in-out;
+				cursor: pointer;
+				position: relative;
 			}
 
-			/* 定义脉动动画 */
+			.dynamic-title:hover {
+				opacity: 1;
+				text-shadow: 0 0 15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 255, 255, 0.8);
+				transform: scale(1.1);
+			}
+
+			/* 动态标题，添加悬停提示 */
+			.dynamic-title {
+				font-size: 2.8rem;
+				color: #e0e0e0;
+				margin: 0;
+				font-weight: bold;
+				letter-spacing: 1px;
+				text-align: center;
+				text-shadow: 0 0 10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.6);
+				animation: pulse 2s ease-in-out infinite alternate;
+
+				/* 隐藏效果 */
+				opacity: 0;
+				transition: all 0.5s ease-in-out;
+				cursor: pointer;
+				position: relative;
+				height: 60px;
+				/* 保持标题区域高度，方便悬停 */
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.dynamic-title:hover {
+				opacity: 1;
+				text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 255, 255, 0.9);
+				transform: scale(1.08);
+			}
+
 			@keyframes pulse {
 				from {
 					transform: scale(1);
@@ -329,14 +358,67 @@
 					transform: scale(1.05);
 				}
 			}
+
+			/* 背景视频容器 */
+			.bg-video-container {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: -2;
+				overflow: hidden;
+			}
+
+			.bg-video {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				opacity: 1;
+				transition: opacity 1s ease-in-out;
+			}
+
+			.bg-video {
+				transition: opacity 1s ease, transform 0.5s ease;
+			}
+
+			/* 背景遮罩层 */
+			.hero-overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.5);
+				z-index: -1;
+				pointer-events: none;
+			}
+
+			/* 仅当添加 .show-bg-image 类时才显示静态背景图 */
+			.hero-overlay.show-bg-image::after {
+				content: "";
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: url('images/bg.jpg') center/cover no-repeat;
+				opacity: 0.6;
+				pointer-events: none;
+				z-index: -1;
+			}
 		</style>
 	</head>
 	<body>
-		
-		<video autoplay muted loop id="bg-video"
-			style="position:fixed; width:100%; height:100%; object-fit:cover; z-index:-1;">
-			<source src="video/de.mp4" type="video/mp4">
-		</video>
+		<!-- 背景视频容器（双视频） -->
+		<div class="bg-video-container">
+			<video id="bg-video-1" class="bg-video" muted></video>
+			<video id="bg-video-2" class="bg-video" muted></video>
+		</div>
+		<div class="hero-overlay"></div>
 		<header>
 			<h1 class="dynamic-title typewriter">咸鱼梦想家</h1>
 			<nav>
@@ -493,6 +575,183 @@
 		<footer>
 			&copy; 2025 咸鱼梦想家. 保持好奇，持续前行。
 		</footer>
+
+		<script>
+			// 安全播放函数：处理自动播放被阻止的情况
+			function playVideoSafely(video) {
+				if (!video) return;
+
+				const playPromise = video.play();
+				if (playPromise !== undefined) {
+					playPromise
+						.then(() => {
+							console.log("✅ 视频播放成功");
+							// 成功 → 移除 fallback 背景图
+							document.querySelector('.hero-overlay').classList.remove('show-bg-image');
+						})
+						.catch((error) => {
+							console.warn("⚠️ 自动播放失败:", error);
+							showHint();
+							// 失败 → 显示静态背景图作为 fallback
+							document.querySelector('.hero-overlay').classList.add('show-bg-image');
+						});
+				}
+			}
+
+
+
+			// 监听 DOM 加载完成
+			document.addEventListener('DOMContentLoaded', function() {
+				const video1 = document.getElementById('bg-video-1');
+				const video2 = document.getElementById('bg-video-2');
+				const src = 'video/de.mp4'; // 你的视频路径
+
+				// 设置视频源
+				video1.src = src;
+				video2.src = src;
+
+				// 监听视频加载错误（文件不存在等情况）
+				[video1, video2].forEach(video => {
+					video.addEventListener('error', () => {
+						console.error("📹 视频加载失败，使用静态背景");
+						document.querySelector('.hero-overlay').classList.add('show-bg-image');
+					});
+				});
+
+				// 初始尝试播放第一个视频
+				playVideoSafely(video1);
+
+				// 视频1结束 → 播放视频2
+				video1.addEventListener('ended', function() {
+					video2.currentTime = 0;
+					video2.play().catch(() => showHint());
+					video1.style.opacity = 0;
+					video2.style.opacity = 1;
+				});
+
+				// 视频2结束 → 播放视频1
+				video2.addEventListener('ended', function() {
+					video1.currentTime = 0;
+					video1.play().catch(() => showHint());
+					video2.style.opacity = 0;
+					video1.style.opacity = 1;
+				});
+			});
+
+			// 当页面从隐藏状态恢复时（如切换标签页回来），尝试恢复播放
+			document.addEventListener('visibilitychange', function() {
+				if (!document.hidden) {
+					const video1 = document.getElementById('bg-video-1');
+					const video2 = document.getElementById('bg-video-2');
+					const currentVideo = video1.style.opacity == 1 ? video1 : video2;
+
+					if (currentVideo && !currentVideo.paused) {
+						playVideoSafely(currentVideo);
+					}
+				}
+			});
+
+			// 修复页面切换时的视频状态
+			function restoreVideoPlayback() {
+				const video1 = document.getElementById('bg-video-1');
+				const video2 = document.getElementById('bg-video-2');
+
+				// 检查当前哪个视频应该播放
+				const currentVideo = video1.style.opacity == 1 ? video1 : video2;
+				const otherVideo = currentVideo === video1 ? video2 : video1;
+
+				// 如果视频已暂停，重新播放
+				if (currentVideo.paused && currentVideo.readyState >= 3) {
+					playVideoSafely(currentVideo);
+				}
+
+				// 确保另一个视频准备好
+				otherVideo.currentTime = 0;
+				otherVideo.pause();
+			}
+
+			// 监听页面显示状态
+			document.addEventListener('visibilitychange', function() {
+				if (!document.hidden) {
+					// 页面重新可见时，恢复视频播放
+					setTimeout(restoreVideoPlayback, 300);
+				}
+			});
+
+			// 监听页面加载完成
+			window.addEventListener('load', function() {
+				setTimeout(restoreVideoPlayback, 500);
+			});
+
+			// 改进的播放安全函数
+			function playVideoSafely(video) {
+				if (!video || video.readyState < 3) return;
+
+				const playPromise = video.play();
+				if (playPromise !== undefined) {
+					playPromise
+						.then(() => {
+							console.log("✅ 视频播放成功");
+							document.querySelector('.hero-overlay').classList.remove('show-bg-image');
+						})
+						.catch((error) => {
+							console.warn("⚠️ 自动播放失败:", error);
+							showHint();
+							document.querySelector('.hero-overlay').classList.add('show-bg-image');
+
+							// 添加重试机制
+							setTimeout(() => {
+								if (video.paused) {
+									playVideoSafely(video);
+								}
+							}, 1000);
+						});
+				}
+			}
+
+			// 改进的视频错误处理
+			[video1, video2].forEach(video => {
+				video.addEventListener('error', () => {
+					console.error("📹 视频加载失败，使用静态背景");
+					document.querySelector('.hero-overlay').classList.add('show-bg-image');
+
+					// 禁用双视频切换
+					video1.removeEventListener('ended', video1EndHandler);
+					video2.removeEventListener('ended', video2EndHandler);
+				});
+			});
+
+			// 分离事件处理器以便后续移除
+			function video1EndHandler() {
+				const video2 = document.getElementById('bg-video-2');
+				video2.currentTime = 0;
+				video2.play().catch(() => showHint());
+				video1.style.opacity = 0;
+				video2.style.opacity = 1;
+			}
+
+			function video2EndHandler() {
+				const video1 = document.getElementById('bg-video-1');
+				video1.currentTime = 0;
+				video1.play().catch(() => showHint());
+				video2.style.opacity = 0;
+				video1.style.opacity = 1;
+			}
+
+			// 在DOM加载完成后重新绑定事件
+			document.addEventListener('DOMContentLoaded', function() {
+				const video1 = document.getElementById('bg-video-1');
+				const video2 = document.getElementById('bg-video-2');
+
+				// 移除旧的事件监听器（避免重复）
+				video1.removeEventListener('ended', video1EndHandler);
+				video2.removeEventListener('ended', video2EndHandler);
+
+				// 添加新的事件监听器
+				video1.addEventListener('ended', video1EndHandler);
+				video2.addEventListener('ended', video2EndHandler);
+			});
+		</script>
 
 	</body>
 </html>
