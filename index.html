@@ -215,6 +215,18 @@
 					transform: scale(1.05);
 				}
 			}
+			
+			/* 视频遮盖层：让背景视频变暗 */
+			.hero-overlay {
+			  position: absolute;
+			  top: 0;
+			  left: 0;
+			  width: 100%;
+			  height: 100%;
+			  background: rgba(0, 0, 0, 0.5); /* 黑色半透明，0.5 可调 */
+			  z-index: 1; /* 确保在视频之上、文字之下 */
+			  pointer-events: none; /* 不阻挡点击/交互 */
+			}
 		</style>
 	</head>
 
